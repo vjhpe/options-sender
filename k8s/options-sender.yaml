@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: options-sender
+  labels:
+    app: options-uac
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: options-uac
+  template:
+    metadata:
+      labels:
+        app: options-uac
+    spec:
+      containers:
+      - name: options-sender
+        image: vjhpe/options-sender:1.0.0
+        ports:
+        - containerPort: 5060
+        env:
+          - name: LISTENING_POINT_ADDRESS
+            value: "0.0.0.0"
+          - name: LISTENING_POINT_PORT
+            value: "5060"
+          - name: LISTENING_POINT_TRANSPORT
+            value: "UDP"
+          - name: DESTINATION_HOSTPORT
+            value: "options-responder:5060"
+          - name: ADVERTISED_HOST
+            value: "options-sender"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: options-sender
+spec:
+  type: ClusterIP
+  selector:
+    app: options-uac
+  ports:
+    - protocol: UDP
+      port: 5060
+      targetPort: 5060
