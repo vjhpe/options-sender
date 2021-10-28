@@ -7,7 +7,7 @@ You can import this as a maven project into any IDE of choice and build it.
 From the command-line, you can build it using `mvn clean` and `mvn install`.
 
 ## Deployment & Running
-This SIP server is meant to be deployed in kubernetes.
+This SIP client is meant to be deployed in kubernetes.
 You need :
 - docker build tools that allows you to build container images.
 - a working k8s cluster.
@@ -26,4 +26,4 @@ To build the container image:
 
 - Kubernetes deployment manifest files are available under the directory `k8s/`.
 - The application gets deployed as a Service with one pod behind it.
-- Run - `kubectl apply -f ./options-responder.yaml` to deploy the SIP server into your k8s cluster.
+- Run - `kubectl apply -f ./options-sender.yaml` to deploy the SIP server into your k8s cluster.
